@@ -19,9 +19,11 @@ TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS="
 --disable-tests
 "
 
+WINEMU_PREFIX="/data/data/com.winemu/files/usr"
+
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 enable_wineandroid_drv=no
-exec_prefix=$TERMUX_PREFIX
+exec_prefix=$WINEMU_PREFIX
 --with-wine-tools=$TERMUX_PKG_HOSTBUILD_DIR
 --enable-nls
 --disable-tests
