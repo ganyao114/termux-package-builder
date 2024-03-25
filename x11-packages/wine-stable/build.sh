@@ -21,6 +21,7 @@ TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS="
 
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 enable_wineandroid_drv=no
+--with-wine-tools=$TERMUX_PKG_HOSTBUILD_DIR
 --enable-nls
 --disable-tests
 --without-alsa
