@@ -6,9 +6,9 @@ LICENSE
 LICENSE.OLD
 COPYING.LIB"
 TERMUX_PKG_MAINTAINER="@termux"
-TERMUX_PKG_VERSION=9.0
-TERMUX_PKG_SRCURL=https://dl.winehq.org/wine/source/${TERMUX_PKG_VERSION:0:3}/wine-$TERMUX_PKG_VERSION.tar.xz
-TERMUX_PKG_SHA256=7cfd090a5395f5b76d95bb5defac8a312c8de4c070c1163b8b58da38330ca6ee
+TERMUX_PKG_VERSION=9.5
+TERMUX_PKG_SRCURL=https://dl.winehq.org/wine/source/9.x/wine-$TERMUX_PKG_VERSION.tar.xz
+TERMUX_PKG_SHA256=12cf2fb7098134e2351c49ea3ba8f4da2a674f1f8722bebd4c3a4a6ca6d2e975
 TERMUX_PKG_DEPENDS="fontconfig, freetype, krb5, libandroid-spawn, libc++, libgmp, libgnutls, libxcb, libxcomposite, libxcursor, libxfixes, libxrender, mesa, opengl, pulseaudio, sdl2, vulkan-loader, xorg-xrandr"
 TERMUX_PKG_ANTI_BUILD_DEPENDS="vulkan-loader"
 TERMUX_PKG_BUILD_DEPENDS="libandroid-spawn-static, vulkan-loader-generic"
@@ -19,12 +19,8 @@ TERMUX_PKG_EXTRA_HOSTBUILD_CONFIGURE_ARGS="
 --disable-tests
 "
 
-WINEMU_PREFIX="/data/data/com.winemu/files/usr"
-
 TERMUX_PKG_EXTRA_CONFIGURE_ARGS="
 enable_wineandroid_drv=no
-exec_prefix=$WINEMU_PREFIX
---with-wine-tools=$TERMUX_PKG_HOSTBUILD_DIR
 --enable-nls
 --disable-tests
 --without-alsa
@@ -124,6 +120,8 @@ termux_step_pre_configure() {
 	LDFLAGS="${LDFLAGS/-Wl,-z,relro,-z,now/}"
 
 	LDFLAGS+=" -landroid-spawn"
+
+	export XPERIMENTAL_WOW64="${EXPERIMENTAL_WOW64:-true}"
 }
 
 termux_step_make_install() {
